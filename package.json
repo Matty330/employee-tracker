@@ -1,0 +1,12 @@
+{
+  "name": "employee-tracker",
+  "version": "1.0.0",
+  "description": "A CLI-based application for managing a company's employee database.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
