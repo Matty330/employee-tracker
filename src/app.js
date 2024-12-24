@@ -159,7 +159,6 @@ function addRole() {
                 },
             ])
             .then((answers) => {
-                // Remove commas from salary input
                 const sanitizedSalary = parseFloat(answers.roleSalary.replace(/,/g, ''));
 
                 if (isNaN(sanitizedSalary)) {
@@ -265,10 +264,60 @@ function addEmployee() {
     });
 }
 
-// Placeholder for update functionality
+// Update an employee's role
 function updateEmployeeRole() {
-    console.log('Update an employee role selected.');
-    mainMenu();
+    pool.query('SELECT * FROM employee', (err, res) => {
+        if (err) {
+            console.error(err);
+            mainMenu();
+            return;
+        }
+
+        const employees = res.rows.map((employee) => ({
+            name: `${employee.first_name} ${employee.last_name}`,
+            value: employee.id,
+        }));
+
+        pool.query('SELECT * FROM role', (err, res) => {
+            if (err) {
+                console.error(err);
+                mainMenu();
+                return;
+            }
+
+            const roles = res.rows.map((role) => ({
+                name: role.title,
+                value: role.id,
+            }));
+
+            inquirer
+                .prompt([
+                    {
+                        type: 'list',
+                        name: 'employeeId',
+                        message: "Select the employee whose role you'd like to update:",
+                        choices: employees,
+                    },
+                    {
+                        type: 'list',
+                        name: 'roleId',
+                        message: "Select the employee's new role:",
+                        choices: roles,
+                    },
+                ])
+                .then((answers) => {
+                    const query = 'UPDATE employee SET role_id = $1 WHERE id = $2';
+                    pool.query(query, [answers.roleId, answers.employeeId], (err) => {
+                        if (err) {
+                            console.error(err);
+                        } else {
+                            console.log(`Updated employee's role successfully!`);
+                        }
+                        mainMenu();
+                    });
+                });
+        });
+    });
 }
 
 // Initialize the application
