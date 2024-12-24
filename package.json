@@ -12,7 +12,7 @@
   "dependencies": {
     "console.table": "^0.10.0",
     "dotenv": "^16.4.7",
-    "inquirer": "^12.3.0",
+    "inquirer": "^8.2.4",
     "pg": "^8.13.1"
   }
 }
