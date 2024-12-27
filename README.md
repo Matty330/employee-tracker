@@ -66,5 +66,8 @@ Follow the interactive prompts to manage your database.
 - Inquirer
 - pg (Node PostgreSQL client)
 
+## Video link 
+-https://drive.google.com/file/d/1NzTdQ9NgbDEMWA0LWlIktAnJlSXhaJrU/view?usp=sharing
+
 ## License
 MIT
